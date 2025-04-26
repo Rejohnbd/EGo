@@ -28,4 +28,7 @@ func ConnectDB() {
 	DB = database
 
 	log.Println("Database connection successful")
+
+	// Migrate the database schema
+	RunMigrations()
 }

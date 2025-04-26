@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "uuid": "a409d9d8-e816-4d81-90c4-d2bc85f3d251",
+    "name": "Dakbar Admin",
+    "username": "admin",
+    "email": "admin@example.com",
+    "phone": "+8801813667909",
+    "email_verified": 1,
+    "role": "editor",
+    "image": null,
+    "password": "$2y$12$DH/5AjduCAzAzOKBLaem9u3wvPrgmcYH55J5xRi7gc6MeyMmX.Iyi",
+    "status": null,
+    "remember_token": "Ql5yV9N2trJJBB3M6sUQNW15iJmMupTZbHHOnVaYVMK8uRSK83BK8sWjyzTn",
+    "created_at": "2024-03-31T10:11:14Z",
+    "updated_at": "2024-03-31T10:11:14Z"
+  },
+  {
+    "id": 2,
+    "uuid": null,
+    "name": "Anik",
+    "username": "Anik",
+    "email": "anik@gmail.com",
+    "phone": null,
+    "email_verified": 0,
+    "role": "editor",
+    "image": "954",
+    "password": "$2y$10$ZlqNAf244PiXHxyPO/a.QuEBF.zYS7d8skfEGMmOlHktztjeE9xj6",
+    "status": null,
+    "remember_token": "W3UM77hnlTKvVj00jvyemUB5pgA6VPwzY9MrEJorNr95CN21mGO5Nh5umAbD",
+    "created_at": "2024-05-04T10:03:42Z",
+    "updated_at": "2024-05-04T10:03:42Z"
+  }
+]
