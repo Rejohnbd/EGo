@@ -1,11 +1,18 @@
 package main
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"dakbazar/routes"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func main() {
 	app := fiber.New()
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!")
 	})
+
+	routes.ApiRoutes(app)
+
 	app.Listen(":3000")
 }
