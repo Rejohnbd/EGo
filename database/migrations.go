@@ -7,7 +7,10 @@ import (
 
 func RunMigrations() {
 	err := DB.AutoMigrate(
+		&models.Zone{},
+		&models.Status{},
 		&models.Admin{},
+		&models.AdminRole{},
 	)
 
 	if err != nil {
