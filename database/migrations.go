@@ -12,6 +12,7 @@ func RunMigrations() {
 		&models.Status{},
 		&models.Admin{},
 		&models.AdminRole{},
+		&models.AdminShippingMethod{},
 	)
 
 	if err != nil {
