@@ -7,6 +7,7 @@ import (
 
 func RunMigrations() {
 	err := DB.AutoMigrate(
+		&models.MediaUpload{},
 		&models.Zone{},
 		&models.Status{},
 		&models.Admin{},

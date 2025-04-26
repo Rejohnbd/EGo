@@ -36,6 +36,10 @@ func main() {
 			return c.Status(500).JSON(fiber.Map{"error": "SeedZones failed!"})
 		}
 
+		if err := database.SeedMediaUploads(); err != nil {
+			return c.Status(500).JSON(fiber.Map{"error": "SeedMediaUploads failed!"})
+		}
+
 		return c.JSON(fiber.Map{"message": "Seeding completed!"})
 	})
 

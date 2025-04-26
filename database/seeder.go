@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"strconv"
+	"time"
 )
 
 func SeedStatus() error {
@@ -114,5 +116,95 @@ func SeedZones() error {
 	}
 
 	fmt.Println("Zones seeded successfully!")
+	return nil
+}
+
+func SeedMediaUploads() error {
+	fmt.Println("Seeding MediaUploads...")
+
+	var count int64
+	if err := DB.Model(&models.MediaUpload{}).Count(&count).Error; err != nil {
+		return err
+	}
+
+	if count > 0 {
+		fmt.Println("MediaUploads table already seeded, skipping...")
+		return nil
+	}
+
+	fileData, err := ioutil.ReadFile("data/media_uploads.json")
+	if err != nil {
+		log.Println("Failed to read media_uploads.json:", err)
+		return err
+	}
+
+	type MediaUploadJSON struct {
+		ID         string  `json:"id"`
+		Title      string  `json:"title"`
+		Path       string  `json:"path"`
+		Alt        *string `json:"alt"`
+		Size       *string `json:"size"`
+		Dimensions *string `json:"dimensions"`
+		VendorID   *string `json:"vendor_id"`
+		UserID     *string `json:"user_id"`
+		CreatedAt  string  `json:"created_at"`
+		UpdatedAt  string  `json:"updated_at"`
+	}
+
+	var mediaUploadsJSON []MediaUploadJSON
+	if err := json.Unmarshal(fileData, &mediaUploadsJSON); err != nil {
+		log.Println("Failed to unmarshal media_uploads JSON:", err)
+		return err
+	}
+
+	for _, m := range mediaUploadsJSON {
+		idUint, _ := strconv.ParseUint(m.ID, 10, 64)
+
+		var vendorID *uint
+		if m.VendorID != nil && *m.VendorID != "" {
+			vendorUint, _ := strconv.ParseUint(*m.VendorID, 10, 64)
+			v := uint(vendorUint)
+			vendorID = &v
+		}
+
+		var userID *uint
+		if m.UserID != nil && *m.UserID != "" {
+			userUint, _ := strconv.ParseUint(*m.UserID, 10, 64)
+			u := uint(userUint)
+			userID = &u
+		}
+
+		// Parse created_at and updated_at
+		var createdAt, updatedAt *time.Time
+		if m.CreatedAt != "" {
+			t, _ := time.Parse("2006-01-02 15:04:05", m.CreatedAt)
+			createdAt = &t
+		}
+		if m.UpdatedAt != "" {
+			t, _ := time.Parse("2006-01-02 15:04:05", m.UpdatedAt)
+			updatedAt = &t
+		}
+
+		mediaUpload := models.MediaUpload{
+			ID:         uint(idUint),
+			Title:      m.Title,
+			Path:       m.Path,
+			Alt:        m.Alt,
+			Size:       m.Size,
+			Dimensions: m.Dimensions,
+			VendorID:   vendorID,
+			UserID:     userID,
+			CreatedAt:  createdAt,
+			UpdatedAt:  updatedAt,
+		}
+
+		err := DB.Create(&mediaUpload).Error
+		if err != nil {
+			log.Println("Failed to insert media_upload:", err)
+			return err
+		}
+	}
+
+	fmt.Println("MediaUploads seeded successfully!")
 	return nil
 }
