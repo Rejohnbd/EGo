@@ -3,6 +3,7 @@ package helpers
 import (
 	"dakbazar/database"
 	"dakbazar/internal/models"
+	"os"
 )
 
 type ApiResponse struct {
@@ -34,7 +35,9 @@ func SafeString(val *string) string {
 
 func GetImageDetails(imageId string) models.MediaUpload {
 	var assetsUrl = "assets/uploads/media-uploader/"
-	var baseUrl = "http://127.0.0.1:3000/"
+	appURL := os.Getenv("APP_URL")
+	appPort := os.Getenv("APP_PORT")
+	var baseUrl = "http://" + appURL + ":" + appPort + "/"
 
 	var media models.MediaUpload
 
