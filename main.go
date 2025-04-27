@@ -16,6 +16,7 @@ func main() {
 	}
 
 	database.ConnectDB()
+	database.ConnectMysqlDB()
 
 	app := fiber.New()
 	app.Get("/", func(c *fiber.Ctx) error {
