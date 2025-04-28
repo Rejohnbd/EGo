@@ -3,7 +3,6 @@ package helpers
 import (
 	"dakbazar/database"
 	"dakbazar/internal/models"
-	"os"
 )
 
 type ApiResponse struct {
@@ -34,18 +33,19 @@ func SafeString(val *string) string {
 // }
 
 func GetImageDetails(imageId string) models.MediaUpload {
-	var assetsUrl = "assets/uploads/media-uploader/"
-	appURL := os.Getenv("APP_URL")
-	appPort := os.Getenv("APP_PORT")
-	var baseUrl = "http://" + appURL + ":" + appPort + "/"
+	// var assetsUrl = "assets/uploads/media-uploader/"
+	// appURL := os.Getenv("APP_URL")
+	// appPort := os.Getenv("APP_PORT")
+	// var baseUrl = "http://" + appURL + ":" + appPort + "/"
 
 	var media models.MediaUpload
 
 	database.DBMsql.First(&media, imageId)
 
 	image := models.MediaUpload{
-		Title:      media.Title,
-		Path:       baseUrl + assetsUrl + media.Path,
+		Title: media.Title,
+		// Path:       baseUrl + assetsUrl + media.Path,
+		Path:       media.Path,
 		Alt:        media.Alt,
 		Size:       media.Size,
 		Dimensions: media.Dimensions,
