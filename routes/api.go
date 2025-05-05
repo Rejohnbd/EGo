@@ -18,6 +18,8 @@ func ApiRoutes(app *fiber.App) {
 
 	api.Get("/sliders", controllers.Sliders)
 	api.Get("/featured-items", controllers.FeaturedItems)
+	api.Get("/today-deals", controllers.TodayDeals)
+	api.Get("/hot-items", controllers.HotItems)
 
 	AdminRoutes(api)
 	VendorRoutes(api)
