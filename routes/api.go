@@ -17,6 +17,7 @@ func ApiRoutes(app *fiber.App) {
 	})
 
 	api.Get("/sliders", controllers.Sliders)
+	api.Get("/featured-items", controllers.FeaturedItems)
 
 	AdminRoutes(api)
 	VendorRoutes(api)

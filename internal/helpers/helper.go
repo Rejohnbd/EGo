@@ -57,3 +57,17 @@ func GetImageDetails(imageId string) models.MediaUpload {
 
 	return image
 }
+
+func ConvertMapInterfaceToMapString(input map[interface{}]interface{}) map[string]interface{} {
+	result := make(map[string]interface{})
+	for key, value := range input {
+		strKey := key.(string) // safely assume keys are string
+		// If value itself is map[interface{}]interface{}, recurse
+		if innerMap, ok := value.(map[interface{}]interface{}); ok {
+			result[strKey] = ConvertMapInterfaceToMapString(innerMap)
+		} else {
+			result[strKey] = value
+		}
+	}
+	return result
+}
